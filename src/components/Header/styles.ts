@@ -13,21 +13,6 @@ export const ActionsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-
-  a {
-    padding: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    background-color: ${(props) => props.theme['yellow-100']};
-
-    svg {
-      width: 22px;
-      height: 22px;
-      color: ${(props) => props.theme['yellow-800']};
-    }
-  }
 `
 
 export const LocationButton = styled.button`

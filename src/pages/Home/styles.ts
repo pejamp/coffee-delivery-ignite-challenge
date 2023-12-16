@@ -88,11 +88,11 @@ export const CoffeeSection = styled.section`
     color: ${(props) => props.theme['base-800']};
   }
 
-  /* ul {
+  nav ul {
     display: flex;
     align-items: center;
     gap: 8px;
-  } */
+  }
 `
 
 export const TagButton = styled.button`

@@ -10,6 +10,7 @@ import {
 } from './styles'
 
 import coffeeBanner from './../../assets/coffee-banner.png'
+import { Catalog } from '../../components/CoffeeCard/Catalog'
 
 const introItems = [
   {
@@ -36,54 +37,58 @@ const introItems = [
 
 export function Home() {
   return (
-    <>
-      <div>
-        <main>
-          <IntroContainer>
-            <div>
-              <IntroContent>
-                <h1>Encontre o café perfeito para qualquer hora do dia</h1>
-                <p>
-                  Com o Coffee Delivery você recebe seu café onde estiver, a
-                  qualquer hora
-                </p>
-                <ItemsContainer>
-                  {introItems.map((item) => (
-                    <Item key={item.text} itemColors={item.color}>
-                      <span>{item.icon}</span>
-                      {item.text}
-                    </Item>
-                  ))}
-                </ItemsContainer>
-              </IntroContent>
+    <main>
+      <IntroContainer>
+        <div>
+          <IntroContent>
+            <h1>Encontre o café perfeito para qualquer hora do dia</h1>
+            <p>
+              Com o Coffee Delivery você recebe seu café onde estiver, a
+              qualquer hora
+            </p>
+            <ItemsContainer>
+              {introItems.map((item) => (
+                <Item key={item.text} itemColors={item.color}>
+                  <span>{item.icon}</span>
+                  {item.text}
+                </Item>
+              ))}
+            </ItemsContainer>
+          </IntroContent>
 
-              <img src={coffeeBanner} alt="" />
-            </div>
-          </IntroContainer>
+          <img src={coffeeBanner} alt="" />
+        </div>
+      </IntroContainer>
 
-          <CoffeeSection>
-            <div>
-              <h2>Nossos cafés</h2>
-              <nav>
-                <ul>
-                  <li>
-                    <TagButton>lorem</TagButton>
-                  </li>
-                  <li>
-                    <TagButton>lorem</TagButton>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <ListContainer>
-              <li>Café</li>
-              <li>Café</li>
-              <li>Café</li>
-              <li>Café</li>
-            </ListContainer>
-          </CoffeeSection>
-        </main>
-      </div>
-    </>
+      <CoffeeSection>
+        <div>
+          <h2>Nossos cafés</h2>
+          <nav>
+            <ul>
+              <li>
+                <TagButton>lorem</TagButton>
+              </li>
+              <li>
+                <TagButton>lorem</TagButton>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <ListContainer>
+          <li>
+            <Catalog />
+          </li>
+          <li>
+            <Catalog />
+          </li>
+          <li>
+            <Catalog />
+          </li>
+          <li>
+            <Catalog />
+          </li>
+        </ListContainer>
+      </CoffeeSection>
+    </main>
   )
 }
