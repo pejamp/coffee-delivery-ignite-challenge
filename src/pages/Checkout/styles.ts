@@ -15,6 +15,7 @@ export const FormContainer = styled.form`
     font-weight: 700;
     font-size: 1.125rem;
     color: ${(props) => props.theme['base-800']};
+    margin-bottom: 1rem;
   }
 `
 
@@ -23,6 +24,7 @@ export const FormCard = styled.div`
   flex-direction: column;
   gap: 32px;
   padding: 2.5rem;
+  min-width: 40rem;
 
   border-radius: 6px;
   background-color: ${(props) => props.theme['base-200']};
@@ -37,10 +39,85 @@ export const FormHeader = styled.div`
   align-items: flex-start;
   gap: 8px;
 
-  svg {
-    color: ${(props) => props.theme['yellow-800']};
+  span {
+    font-size: 1rem;
+    color: ${(props) => props.theme['base-800']};
   }
 
-  span {
+  p {
+    font-size: 0.875rem;
+    color: ${(props) => props.theme['base-700']};
   }
+`
+
+export const CoffeeAccount = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  padding: 2.5rem;
+  min-width: 28rem;
+
+  border-radius: 6px 44px;
+  background-color: ${(props) => props.theme['base-200']};
+`
+
+export const TotalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`
+
+interface TotalItemProps {
+  totalSum?: boolean
+}
+
+export const TotalItem = styled.div<TotalItemProps>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: ${(props) => props.theme['base-700']};
+
+  span {
+    font-size: ${(props) => (props.totalSum ? '1.25rem' : '1rem')};
+  }
+
+  font-size: ${(props) => (props.totalSum ? '1.25rem' : '0.875rem')};
+  font-weight: ${(props) => (props.totalSum ? '700' : '400')};
+  color: ${(props) =>
+    props.totalSum ? props.theme['base-800'] : props.theme['base-700']};
+`
+
+export const Divider = styled.div`
+  height: 1px;
+  background-color: ${(props) => props.theme['base-400']};
+`
+
+export const CoffeeCards = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`
+
+export const FormInputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`
+
+const InputSizeBase = styled.div`
+  display: grid;
+  gap: 12px;
+`
+
+export const InputCEP = styled(InputSizeBase)`
+  grid-template-columns: 12.5rem;
+`
+
+export const InputNumber = styled(InputSizeBase)`
+  grid-template-columns: 12.5rem auto;
+`
+
+export const InputLocation = styled(InputSizeBase)`
+  grid-template-columns: 12.5rem 17.25rem 3.75rem;
 `
