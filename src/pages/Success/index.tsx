@@ -1,5 +1,4 @@
 import { CurrencyDollar, MapPin, Timer } from '@phosphor-icons/react'
-import illustrationImage from '../../assets/Illustration.png'
 import {
   OrderInfo,
   OrderContent,
@@ -49,7 +48,7 @@ export function Success() {
           </Info>
         </OrderInfo>
 
-        <img src={illustrationImage} alt="" />
+        <img src="/images/delivery-illustration.png" alt="" />
       </OrderContent>
     </SuccessContainer>
   )

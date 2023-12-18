@@ -1,5 +1,6 @@
 import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
 import {
+  BuyButton,
   CheckoutContainer,
   CoffeeAccount,
   CoffeeCards,
@@ -8,6 +9,7 @@ import {
   FormContainer,
   FormHeader,
   FormInputs,
+  FormSelects,
   InputCEP,
   InputLocation,
   InputNumber,
@@ -15,6 +17,8 @@ import {
   TotalItem,
 } from './styles'
 import { Input } from '../../components/Input'
+import { InputSelect } from '../../components/InputSelect'
+import { Cart } from '../../components/CoffeeCard/Cart'
 
 export function Checkout() {
   return (
@@ -59,6 +63,11 @@ export function Checkout() {
                 </p>
               </div>
             </FormHeader>
+            <FormSelects>
+              <InputSelect payment="credit" />
+              <InputSelect payment="debit" />
+              <InputSelect payment="money" />
+            </FormSelects>
           </FormCard>
         </div>
         <div>
@@ -66,9 +75,9 @@ export function Checkout() {
 
           <CoffeeAccount>
             <CoffeeCards>
-              <div>card</div>
+              <Cart />
               <Divider />
-              <div>card</div>
+              <Cart />
               <Divider />
             </CoffeeCards>
             <TotalContent>
@@ -85,7 +94,7 @@ export function Checkout() {
                 <span>R$ 29,70</span>
               </TotalItem>
             </TotalContent>
-            <button>confirmar</button>
+            <BuyButton>confirmar pedido</BuyButton>
           </CoffeeAccount>
         </div>
       </FormContainer>

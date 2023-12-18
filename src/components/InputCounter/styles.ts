@@ -5,8 +5,8 @@ export const CounterContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 0.5rem;
-  min-height: 2.375rem;
+  padding: 0 0.5rem;
+  min-height: 2rem;
 
   border-radius: 6px;
   background-color: ${(props) => props.theme['base-400']};

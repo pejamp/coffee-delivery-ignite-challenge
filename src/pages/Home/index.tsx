@@ -1,4 +1,5 @@
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
+import { Catalog } from '../../components/CoffeeCard/Catalog'
 import {
   CoffeeSection,
   IntroContainer,
@@ -9,8 +10,7 @@ import {
   TagButton,
 } from './styles'
 
-import coffeeBanner from './../../assets/coffee-banner.png'
-import { Catalog } from '../../components/CoffeeCard/Catalog'
+import { coffees } from '../../../data.json'
 
 const introItems = [
   {
@@ -48,7 +48,7 @@ export function Home() {
             </p>
             <ItemsContainer>
               {introItems.map((item) => (
-                <Item key={item.text} itemColors={item.color}>
+                <Item key={item.text} itemcolors={item.color}>
                   <span>{item.icon}</span>
                   {item.text}
                 </Item>
@@ -56,7 +56,7 @@ export function Home() {
             </ItemsContainer>
           </IntroContent>
 
-          <img src={coffeeBanner} alt="" />
+          <img src="/images/coffee-banner.png" alt="" />
         </div>
       </IntroContainer>
 
@@ -66,27 +66,29 @@ export function Home() {
           <nav>
             <ul>
               <li>
-                <TagButton>lorem</TagButton>
+                <TagButton>tradicional</TagButton>
               </li>
               <li>
-                <TagButton>lorem</TagButton>
+                <TagButton>especial</TagButton>
+              </li>
+              <li>
+                <TagButton>com leite</TagButton>
+              </li>
+              <li>
+                <TagButton>alcoólico</TagButton>
+              </li>
+              <li>
+                <TagButton>gelado</TagButton>
               </li>
             </ul>
           </nav>
         </div>
         <ListContainer>
-          <li>
-            <Catalog />
-          </li>
-          <li>
-            <Catalog />
-          </li>
-          <li>
-            <Catalog />
-          </li>
-          <li>
-            <Catalog />
-          </li>
+          {coffees.map((coffee) => (
+            <li key={coffee.id}>
+              <Catalog {...coffee} />
+            </li>
+          ))}
         </ListContainer>
       </CoffeeSection>
     </main>

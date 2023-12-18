@@ -1,14 +1,13 @@
 import { MapPin } from '@phosphor-icons/react'
 import { ActionsContainer, HeaderContainer, LocationButton } from './styles'
 
-import cdLogo from './../../assets/logo.svg'
 import { CartLink } from '../CartLink'
 
 export function Header() {
   return (
     <HeaderContainer>
       <span>
-        <img src={cdLogo} alt="" />
+        <img src="/logo.svg" alt="" />
       </span>
       <ActionsContainer>
         <LocationButton>

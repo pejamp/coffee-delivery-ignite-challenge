@@ -40,7 +40,15 @@ export const CatalogHeader = styled.div`
   }
 `
 
-export const Tag = styled.span`
+export const Tags = styled.ul`
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+`
+
+export const Tag = styled.li`
   padding: 4px 8px;
   text-align: center;
   border-radius: 100px;
@@ -50,8 +58,6 @@ export const Tag = styled.span`
   text-transform: uppercase;
   font-weight: 700;
   font-size: 0.625rem;
-
-  margin-bottom: 1rem;
 `
 
 export const CatalogFooter = styled.div`
@@ -73,7 +79,6 @@ export const Price = styled.span`
 
 export const InputActions = styled.div`
   display: flex;
-  align-items: center;
   gap: 8px;
 `
 

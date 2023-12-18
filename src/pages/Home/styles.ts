@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const IntroContainer = styled.section`
-  background-image: url('/intro-background.png');
+  background-image: url('/images/intro-background.png');
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
@@ -46,10 +46,12 @@ export const ItemsContainer = styled.ul`
 `
 
 interface ItemProps {
-  itemColors: string
+  itemcolors: string
 }
 
-export const Item = styled.li<ItemProps>`
+export const Item = styled.li.withConfig({
+  shouldForwardProp: (props) => props === 'itemcolors',
+})<ItemProps>`
   display: flex;
   align-items: center;
   gap: 12px;
@@ -63,7 +65,7 @@ export const Item = styled.li<ItemProps>`
     justify-content: center;
     padding: 0.5rem;
     border-radius: 50%;
-    background-color: ${(props) => props.theme[props.itemColors]};
+    background-color: ${(props) => props.theme[props.itemcolors]};
     color: ${(props) => props.theme['base-100']};
   }
 `
@@ -100,11 +102,19 @@ export const TagButton = styled.button`
   border-radius: 100px;
   border: 1px solid ${(props) => props.theme['yellow-500']};
   background: transparent;
+  cursor: pointer;
 
   font-size: 0.625rem;
   text-transform: uppercase;
   font-weight: 700;
   color: ${(props) => props.theme['yellow-800']};
+
+  transition: all 250ms ease-in;
+
+  &:hover {
+    background-color: ${(props) => props.theme['yellow-100']};
+    border-color: transparent;
+  }
 `
 
 export const ListContainer = styled.ul`

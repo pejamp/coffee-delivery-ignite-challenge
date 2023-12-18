@@ -121,3 +121,29 @@ export const InputNumber = styled(InputSizeBase)`
 export const InputLocation = styled(InputSizeBase)`
   grid-template-columns: 12.5rem 17.25rem 3.75rem;
 `
+
+export const BuyButton = styled.button`
+  padding: 0.75rem 0.5rem;
+  border-radius: 6px;
+  background-color: ${(props) => props.theme['yellow-500']};
+  border: 0;
+  cursor: pointer;
+
+  color: ${(props) => props.theme.white};
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-transform: uppercase;
+
+  transition: background-color 250ms ease-in;
+
+  &:hover {
+    background-color: ${(props) => props.theme['yellow-800']};
+  }
+`
+
+export const FormSelects = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`
