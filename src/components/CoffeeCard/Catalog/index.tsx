@@ -14,6 +14,7 @@ import { InputCounter } from '../../InputCounter'
 import { useState } from 'react'
 import { useCart } from '../../../hooks/useCart'
 import { ICart } from '../../../contexts/CartProvider'
+import { formatPrice } from '../../../utils/formatPrice'
 
 export interface ICatalog {
   title: string
@@ -39,12 +40,18 @@ export function Catalog(props: ICatalog) {
       image: props.image,
     }
 
-    addToCart(newCoffee)
+    const hasInCart = cartItems.find((cart) => cart.title === newCoffee.title)
 
-    console.log(cartItems)
+    console.log(hasInCart)
+
+    if (hasInCart) return
+
+    if (coffeeAmount === 0) return
+
+    addToCart(newCoffee)
   }
 
-  const formattedPrice = props.price.toFixed(2).toString().replace('.', ',')
+  const formattedPrice = formatPrice(props.price)
 
   return (
     <CatalogContainer>

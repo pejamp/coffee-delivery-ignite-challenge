@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const CartContainer = styled.a`
+export const CartContainer = styled.div`
   position: relative;
   padding: 8px;
   display: flex;

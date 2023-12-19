@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
+import { coffeeStorage } from '../storage/coffeeStorage'
 
 export interface ICart {
   title: string
@@ -19,7 +20,11 @@ interface CartProviderProps {
 export const CartContext = createContext({} as CartContext)
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-  const [cartItems, setCartItems] = useState<ICart[]>([])
+  const [cartItems, setCartItems] = useState<ICart[]>(coffeeStorage.get())
+
+  useEffect(() => {
+    coffeeStorage.save(cartItems)
+  }, [cartItems])
 
   return (
     <CartContext.Provider value={{ cartItems, setCartItems }}>

@@ -1,4 +1,6 @@
-import { InputCounter } from '../../InputCounter'
+import { ICart } from '../../../contexts/CartProvider'
+import { formatPrice } from '../../../utils/formatPrice'
+// import { InputCounter } from '../../InputCounter'
 import {
   CartActions,
   CartButton,
@@ -10,15 +12,17 @@ import {
 
 import { Trash } from '@phosphor-icons/react'
 
-export function Cart() {
+export function Cart(props: ICart) {
+  const formattedPrice = formatPrice(props.price)
+
   return (
     <CartContainer>
       <CartInfo>
-        <img src="" alt="" />
+        <img src={props.image} alt={props.title} />
         <div>
-          <CartName>Expresso Tradicional</CartName>
+          <CartName>{props.title}</CartName>
           <CartActions>
-            <InputCounter />
+            {/* <InputCounter amount={props.amount} /> */}
             <CartButton>
               <Trash size={16} />
               remover
@@ -26,7 +30,7 @@ export function Cart() {
           </CartActions>
         </div>
       </CartInfo>
-      <PriceTag>R$ 9,90</PriceTag>
+      <PriceTag>R$ {formattedPrice}</PriceTag>
     </CartContainer>
   )
 }

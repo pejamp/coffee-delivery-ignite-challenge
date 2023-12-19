@@ -53,7 +53,6 @@ export const FormHeader = styled.div`
 export const CoffeeAccount = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
 
   padding: 2.5rem;
   min-width: 28rem;
@@ -66,37 +65,40 @@ export const TotalContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  //background-color: black;
 `
 
 interface TotalItemProps {
-  totalSum?: boolean
+  totalsum?: boolean
 }
 
-export const TotalItem = styled.div<TotalItemProps>`
+export const TotalItem = styled('div').withConfig({
+  shouldForwardProp: (prop) => prop === 'totalsum' || prop === 'children',
+})<TotalItemProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: ${(props) => props.theme['base-700']};
 
   span {
-    font-size: ${(props) => (props.totalSum ? '1.25rem' : '1rem')};
+    font-size: ${(props) => (props.totalsum ? '1.25rem' : '1rem')};
   }
 
-  font-size: ${(props) => (props.totalSum ? '1.25rem' : '0.875rem')};
-  font-weight: ${(props) => (props.totalSum ? '700' : '400')};
+  font-size: ${(props) => (props.totalsum ? '1.25rem' : '0.875rem')};
+  font-weight: ${(props) => (props.totalsum ? '700' : '400')};
   color: ${(props) =>
-    props.totalSum ? props.theme['base-800'] : props.theme['base-700']};
+    props.totalsum ? props.theme['base-800'] : props.theme['base-700']};
 `
 
 export const Divider = styled.div`
   height: 1px;
   background-color: ${(props) => props.theme['base-400']};
+  margin: 1.5rem 0;
 `
 
 export const CoffeeCards = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
 `
 
 export const FormInputs = styled.div`
@@ -124,6 +126,7 @@ export const InputLocation = styled(InputSizeBase)`
 
 export const BuyButton = styled.button`
   padding: 0.75rem 0.5rem;
+  margin-top: 1.5rem;
   border-radius: 6px;
   background-color: ${(props) => props.theme['yellow-500']};
   border: 0;

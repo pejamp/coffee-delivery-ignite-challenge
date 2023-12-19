@@ -19,8 +19,10 @@ import {
 import { Input } from '../../components/Input'
 import { InputSelect } from '../../components/InputSelect'
 import { Cart } from '../../components/CoffeeCard/Cart'
+import { useCart } from '../../hooks/useCart'
 
 export function Checkout() {
+  const { cartItems } = useCart()
   return (
     <CheckoutContainer>
       <FormContainer>
@@ -75,11 +77,14 @@ export function Checkout() {
 
           <CoffeeAccount>
             <CoffeeCards>
-              <Cart />
-              <Divider />
-              <Cart />
-              <Divider />
+              {cartItems.map((item) => (
+                <div key={item.title}>
+                  <Cart {...item} />
+                  <Divider />
+                </div>
+              ))}
             </CoffeeCards>
+
             <TotalContent>
               <TotalItem>
                 <p>Total de itens</p>
@@ -89,7 +94,7 @@ export function Checkout() {
                 <p>Total de itens</p>
                 <span>R$ 29,70</span>
               </TotalItem>
-              <TotalItem totalSum>
+              <TotalItem totalsum>
                 <p>Total</p>
                 <span>R$ 29,70</span>
               </TotalItem>
