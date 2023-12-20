@@ -1,11 +1,11 @@
 import { ShoppingCart } from '@phosphor-icons/react'
 import { CartContainer, Counter } from './styles'
-import { useCart } from '../../hooks/useCart'
 import { Link } from 'react-router-dom'
+import { useCart } from '../../contexts/CartProvider'
 
 export function CartLink() {
   const { cartItems } = useCart()
-  const isCartEmpty = cartItems.length === 0 || undefined
+  const isCartEmpty = false
 
   return (
     <Link to={'/checkout'}>

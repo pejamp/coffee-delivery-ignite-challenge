@@ -19,10 +19,11 @@ import {
 import { Input } from '../../components/Input'
 import { InputSelect } from '../../components/InputSelect'
 import { Cart } from '../../components/CoffeeCard/Cart'
-import { useCart } from '../../hooks/useCart'
+import { useCart } from '../../contexts/CartProvider'
 
 export function Checkout() {
   const { cartItems } = useCart()
+
   return (
     <CheckoutContainer>
       <FormContainer>
@@ -78,8 +79,8 @@ export function Checkout() {
           <CoffeeAccount>
             <CoffeeCards>
               {cartItems.map((item) => (
-                <div key={item.title}>
-                  <Cart {...item} />
+                <div key={item.id}>
+                  {/* <Cart {...item} /> */}
                   <Divider />
                 </div>
               ))}

@@ -1,3 +1,6 @@
+import { ShoppingCart } from '@phosphor-icons/react'
+import { InputCounter } from '../../InputCounter'
+import { formatPrice } from '../../../utils/formatPrice'
 import {
   CartButton,
   CatalogContainer,
@@ -8,15 +11,11 @@ import {
   Tag,
   Tags,
 } from './styles'
-
-import { ShoppingCart } from '@phosphor-icons/react'
-import { InputCounter } from '../../InputCounter'
+import { useCart } from '../../../contexts/CartProvider'
 import { useState } from 'react'
-import { useCart } from '../../../hooks/useCart'
-import { ICart } from '../../../contexts/CartProvider'
-import { formatPrice } from '../../../utils/formatPrice'
 
-export interface ICatalog {
+export interface CatalogProps {
+  id: string
   title: string
   description: string
   tags: string[]
@@ -24,32 +23,10 @@ export interface ICatalog {
   image: string
 }
 
-export function Catalog(props: ICatalog) {
-  const { cartItems, addToCart } = useCart()
-  const [coffeeAmount, setCoffeeAmount] = useState(0)
-
-  function changeAmount(value: number) {
-    setCoffeeAmount((prevState) => prevState + value)
-  }
-
-  function handleAddToCart() {
-    const newCoffee: ICart = {
-      title: props.title,
-      price: props.price,
-      amount: coffeeAmount,
-      image: props.image,
-    }
-
-    const hasInCart = cartItems.find((cart) => cart.title === newCoffee.title)
-
-    console.log(hasInCart)
-
-    if (hasInCart) return
-
-    if (coffeeAmount === 0) return
-
-    addToCart(newCoffee)
-  }
+export function Catalog(props: CatalogProps) {
+  const { getItemQuantity, addToCart } = useCart()
+  const quantity = getItemQuantity(props.id)
+  const [itemQuantity, setItemQuantity] = useState(quantity)
 
   const formattedPrice = formatPrice(props.price)
 
@@ -67,8 +44,16 @@ export function Catalog(props: ICatalog) {
           R$ <strong>{formattedPrice}</strong>
         </Price>
         <InputActions>
-          <InputCounter amount={coffeeAmount} onChangeAmount={changeAmount} />
-          <CartButton onClick={handleAddToCart}>
+          <InputCounter
+            quantity={itemQuantity}
+            increaseQuantity={() =>
+              setItemQuantity((prevState) => (prevState += 1))
+            }
+            decreaseQuantity={() =>
+              setItemQuantity((prevState) => (prevState -= 1))
+            }
+          />
+          <CartButton onClick={() => addToCart(props.id, itemQuantity)}>
             <ShoppingCart size={22} weight="fill" />
           </CartButton>
         </InputActions>

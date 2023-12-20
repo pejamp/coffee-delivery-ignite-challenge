@@ -2,19 +2,24 @@ import { Minus, Plus } from '@phosphor-icons/react'
 import { CounterButton, CounterContainer } from './styles'
 
 interface InputCounterProps {
-  amount: number
-  onChangeAmount: (value: number) => void
+  quantity: number
+  increaseQuantity: () => void
+  decreaseQuantity: () => void
 }
 
-export function InputCounter({ amount, onChangeAmount }: InputCounterProps) {
+export function InputCounter({
+  quantity,
+  increaseQuantity,
+  decreaseQuantity,
+}: InputCounterProps) {
   function handleIncreaseAmount() {
-    if (amount === 10) return
-    onChangeAmount(1)
+    if (quantity === 10) return
+    increaseQuantity()
   }
 
   function handleDecreaseAmount() {
-    if (amount <= 0) return
-    onChangeAmount(-1)
+    if (quantity <= 0) return
+    decreaseQuantity()
   }
 
   return (
@@ -22,7 +27,7 @@ export function InputCounter({ amount, onChangeAmount }: InputCounterProps) {
       <CounterButton onClick={handleDecreaseAmount}>
         <Minus size={14} />
       </CounterButton>
-      <span>{amount}</span>
+      <span>{quantity}</span>
       <CounterButton onClick={handleIncreaseAmount}>
         <Plus size={14} />
       </CounterButton>
