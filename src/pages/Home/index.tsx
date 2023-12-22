@@ -48,7 +48,7 @@ export function Home() {
             </p>
             <ItemsContainer>
               {introItems.map((item) => (
-                <Item key={item.text} itemcolors={item.color}>
+                <Item key={item.text} $itemColors={item.color}>
                   <span>{item.icon}</span>
                   {item.text}
                 </Item>

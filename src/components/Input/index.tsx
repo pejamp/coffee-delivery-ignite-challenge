@@ -1,16 +1,18 @@
 import { InputHTMLAttributes } from 'react'
 import { InputContainer, OptionalTip } from './styles'
-import { useFormContext } from 'react-hook-form'
+import { FieldError, useFormContext } from 'react-hook-form'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   optional?: boolean
   name: string
+  error?: FieldError
 }
 
-export function Input({ optional, name, ...rest }: InputProps) {
+export function Input({ optional, name, error, ...rest }: InputProps) {
   const { register } = useFormContext()
+
   return (
-    <InputContainer>
+    <InputContainer $error={!!error}>
       <input {...rest} {...register(name)} />
       {optional && <OptionalTip>opcional</OptionalTip>}
     </InputContainer>

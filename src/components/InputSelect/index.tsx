@@ -4,29 +4,29 @@ import { useFormContext } from 'react-hook-form'
 import { InputHTMLAttributes } from 'react'
 
 interface InputSelectProps extends InputHTMLAttributes<HTMLInputElement> {
-  value: 'credit' | 'debit' | 'money'
+  paymentType: 'credit' | 'debit' | 'money'
   name: string
 }
 
-export function InputSelect({ value, name }: InputSelectProps) {
+export function InputSelect({ paymentType, name, ...props }: InputSelectProps) {
   const { register } = useFormContext()
 
   return (
     <InputContainer>
-      <input value={value} type="radio" {...register(name)} />
-      {value === 'credit' && (
+      <input type="radio" {...props} {...register(name)} />
+      {paymentType === 'credit' && (
         <>
           <CreditCard size={16} />
           cartão de crédito
         </>
       )}
-      {value === 'debit' && (
+      {paymentType === 'debit' && (
         <>
           <Bank size={16} />
           cartão de débito
         </>
       )}
-      {value === 'money' && (
+      {paymentType === 'money' && (
         <>
           <Money size={16} />
           dinheiro

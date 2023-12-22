@@ -1,4 +1,6 @@
 import { CurrencyDollar, MapPin, Timer } from '@phosphor-icons/react'
+import { useLocation } from 'react-router-dom'
+import { NewOrderFormData } from '../Checkout'
 import {
   OrderInfo,
   OrderContent,
@@ -8,6 +10,11 @@ import {
 } from './styles'
 
 export function Success() {
+  const location = useLocation()
+  const userData: NewOrderFormData = location.state
+
+  console.log(userData)
+
   return (
     <SuccessContainer>
       <h1>Uhu! Pedido confirmado</h1>
@@ -20,8 +27,13 @@ export function Success() {
               <MapPin size={16} weight="fill" />
             </InfoIcon>
             <span>
-              Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
-              <span>Farrapos - Porto Alegre, RS</span>
+              Entrega em{' '}
+              <strong>
+                Rua {userData.street}, {userData.number}
+              </strong>
+              <span>
+                {userData.neighborhood} - {userData.city}, {userData.uf}
+              </span>
             </span>
           </Info>
           <Info>
@@ -42,13 +54,13 @@ export function Success() {
             <span>
               Pagamento na entrega{' '}
               <span>
-                <strong>Cartão de Crédito</strong>
+                <strong>{userData.paymentMethod}</strong>
               </span>
             </span>
           </Info>
         </OrderInfo>
 
-        <img src="/images/delivery-illustration.png" alt="" />
+        <img src="/images/delivery-Illustration.png" alt="" />
       </OrderContent>
     </SuccessContainer>
   )

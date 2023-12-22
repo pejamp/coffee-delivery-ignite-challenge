@@ -16,6 +16,8 @@ import {
 } from './styles'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useCart } from '../../contexts/CartProvider'
+import { useNavigate } from 'react-router-dom'
 
 const newOrderFormValidationSchema = zod.object({
   cep: zod.string().regex(/\d{5}-?\d{3}/, 'CEP inválido'),
@@ -32,17 +34,26 @@ const newOrderFormValidationSchema = zod.object({
     .min(1, { message: 'Selecione um método de pagamento' }),
 })
 
-type NewOrderFormData = zod.infer<typeof newOrderFormValidationSchema>
+export type NewOrderFormData = zod.infer<typeof newOrderFormValidationSchema>
 
 export function Checkout() {
+  const { cartItems } = useCart()
+  const navigate = useNavigate()
   const newOrderForm = useForm<NewOrderFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),
   })
 
-  const { handleSubmit } = newOrderForm
+  const {
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = newOrderForm
 
   function handleNewOrder(data: NewOrderFormData) {
-    console.log(data)
+    if (cartItems.length === 0) return
+
+    navigate('/success', { state: data })
+    reset()
   }
 
   return (
@@ -62,13 +73,20 @@ export function Checkout() {
               </FormHeader>
               <FormInputs>
                 <InputCEP>
-                  <Input placeholder="CEP" id="cep" type="text" name="cep" />
+                  <Input
+                    placeholder="CEP"
+                    id="cep"
+                    type="text"
+                    name="cep"
+                    error={errors.cep}
+                  />
                 </InputCEP>
                 <Input
                   placeholder="Rua"
                   id="street"
                   type="text"
                   name="street"
+                  error={errors.street}
                 />
                 <InputNumber>
                   <Input
@@ -76,6 +94,7 @@ export function Checkout() {
                     type="text"
                     id="number"
                     name="number"
+                    error={errors.number}
                   />
                   <Input
                     placeholder="Complemento"
@@ -83,6 +102,7 @@ export function Checkout() {
                     id="complement"
                     type="text"
                     name="complement"
+                    error={errors.complement}
                   />
                 </InputNumber>
                 <InputLocation>
@@ -91,14 +111,22 @@ export function Checkout() {
                     id="neighborhood"
                     type="text"
                     name="neighborhood"
+                    error={errors.neighborhood}
                   />
                   <Input
                     placeholder="Cidade"
                     id="city"
                     type="text"
                     name="city"
+                    error={errors.city}
                   />
-                  <Input placeholder="UF" id="uf" type="text" name="uf" />
+                  <Input
+                    placeholder="UF"
+                    id="uf"
+                    type="text"
+                    name="uf"
+                    error={errors.uf}
+                  />
                 </InputLocation>
               </FormInputs>
             </FormCard>
@@ -115,9 +143,21 @@ export function Checkout() {
                 </div>
               </FormHeader>
               <FormSelects>
-                <InputSelect name="paymentMethod" value="credit" />
-                <InputSelect name="paymentMethod" value="debit" />
-                <InputSelect name="paymentMethod" value="money" />
+                <InputSelect
+                  name="paymentMethod"
+                  paymentType="credit"
+                  value="Cartão de Crédito"
+                />
+                <InputSelect
+                  name="paymentMethod"
+                  paymentType="debit"
+                  value="Cartão de Débito"
+                />
+                <InputSelect
+                  name="paymentMethod"
+                  paymentType="money"
+                  value="Dinheiro"
+                />
               </FormSelects>
             </FormCard>
           </div>

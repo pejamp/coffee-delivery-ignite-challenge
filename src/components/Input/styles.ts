@@ -1,13 +1,20 @@
 import styled from 'styled-components'
 
-export const InputContainer = styled.div`
+interface InputContainerProps {
+  $error?: boolean
+}
+
+export const InputContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
+})<InputContainerProps>`
   display: flex;
   align-items: center;
   gap: 4px;
   padding: 0.75rem;
 
   border-radius: 4px;
-  border: 1px solid ${(props) => props.theme['base-400']};
+  border: 1px solid
+    ${(props) => (props.$error ? '#BF1650' : props.theme['base-400'])};
   background-color: ${(props) => props.theme['base-300']};
 
   input {

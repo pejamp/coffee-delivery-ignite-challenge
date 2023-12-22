@@ -46,11 +46,11 @@ export const ItemsContainer = styled.ul`
 `
 
 interface ItemProps {
-  itemcolors: string
+  $itemColors: string
 }
 
 export const Item = styled.li.withConfig({
-  shouldForwardProp: (props) => props === 'itemcolors',
+  shouldForwardProp: (props) => props === '$itemColors',
 })<ItemProps>`
   display: flex;
   align-items: center;
@@ -65,7 +65,7 @@ export const Item = styled.li.withConfig({
     justify-content: center;
     padding: 0.5rem;
     border-radius: 50%;
-    background-color: ${(props) => props.theme[props.itemcolors]};
+    background-color: ${(props) => props.theme[props.$itemColors]};
     color: ${(props) => props.theme['base-100']};
   }
 `
