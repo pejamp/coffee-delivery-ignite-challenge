@@ -50,57 +50,6 @@ export const FormHeader = styled.div`
   }
 `
 
-export const CoffeeAccount = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  padding: 2.5rem;
-  min-width: 28rem;
-
-  border-radius: 6px 44px;
-  background-color: ${(props) => props.theme['base-200']};
-`
-
-export const TotalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  //background-color: black;
-`
-
-interface TotalItemProps {
-  totalsum?: boolean
-}
-
-export const TotalItem = styled('div').withConfig({
-  shouldForwardProp: (prop) => prop === 'totalsum' || prop === 'children',
-})<TotalItemProps>`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: ${(props) => props.theme['base-700']};
-
-  span {
-    font-size: ${(props) => (props.totalsum ? '1.25rem' : '1rem')};
-  }
-
-  font-size: ${(props) => (props.totalsum ? '1.25rem' : '0.875rem')};
-  font-weight: ${(props) => (props.totalsum ? '700' : '400')};
-  color: ${(props) =>
-    props.totalsum ? props.theme['base-800'] : props.theme['base-700']};
-`
-
-export const Divider = styled.div`
-  height: 1px;
-  background-color: ${(props) => props.theme['base-400']};
-  margin: 1.5rem 0;
-`
-
-export const CoffeeCards = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
 export const FormInputs = styled.div`
   display: flex;
   flex-direction: column;
@@ -122,27 +71,6 @@ export const InputNumber = styled(InputSizeBase)`
 
 export const InputLocation = styled(InputSizeBase)`
   grid-template-columns: 12.5rem 17.25rem 3.75rem;
-`
-
-export const BuyButton = styled.button`
-  padding: 0.75rem 0.5rem;
-  margin-top: 1.5rem;
-  border-radius: 6px;
-  background-color: ${(props) => props.theme['yellow-500']};
-  border: 0;
-  cursor: pointer;
-
-  color: ${(props) => props.theme.white};
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.6;
-  text-transform: uppercase;
-
-  transition: background-color 250ms ease-in;
-
-  &:hover {
-    background-color: ${(props) => props.theme['yellow-800']};
-  }
 `
 
 export const FormSelects = styled.div`

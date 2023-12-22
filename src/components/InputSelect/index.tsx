@@ -1,27 +1,32 @@
 import { Bank, CreditCard, Money } from '@phosphor-icons/react'
 import { InputContainer } from './styles'
+import { useFormContext } from 'react-hook-form'
+import { InputHTMLAttributes } from 'react'
 
-interface InputSelectProps {
-  payment: 'credit' | 'debit' | 'money'
+interface InputSelectProps extends InputHTMLAttributes<HTMLInputElement> {
+  value: 'credit' | 'debit' | 'money'
+  name: string
 }
 
-export function InputSelect({ payment }: InputSelectProps) {
+export function InputSelect({ value, name }: InputSelectProps) {
+  const { register } = useFormContext()
+
   return (
     <InputContainer>
-      <input checked type="radio" id="credito" name="paymnet" value="credito" />
-      {payment === 'credit' && (
+      <input value={value} type="radio" {...register(name)} />
+      {value === 'credit' && (
         <>
           <CreditCard size={16} />
           cartão de crédito
         </>
       )}
-      {payment === 'debit' && (
+      {value === 'debit' && (
         <>
           <Bank size={16} />
           cartão de débito
         </>
       )}
-      {payment === 'money' && (
+      {value === 'money' && (
         <>
           <Money size={16} />
           dinheiro

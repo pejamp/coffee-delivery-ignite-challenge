@@ -9,10 +9,39 @@ export const CartContainer = styled.div`
   border-radius: 6px;
   background-color: ${(props) => props.theme['yellow-100']};
 
+  transition: all 200ms ease-in;
+
   svg {
     width: 22px;
     height: 22px;
     color: ${(props) => props.theme['yellow-800']};
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme['yellow-500']};
+
+    svg {
+      color: ${(props) => props.theme.white};
+    }
+
+    &:has(span) {
+      span {
+        animation-name: scaleup;
+        animation-duration: 600ms;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
+    }
+  }
+
+  @keyframes scaleup {
+    from {
+      transform: scale(1);
+    }
+
+    to {
+      transform: scale(1.1);
+    }
   }
 `
 

@@ -1,10 +1,10 @@
 import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
+import { Input } from '../../components/Input'
+import { InputSelect } from '../../components/InputSelect'
+import { ShoppingCart } from '../../components/ShoppingCart'
+import * as zod from 'zod'
 import {
-  BuyButton,
   CheckoutContainer,
-  CoffeeAccount,
-  CoffeeCards,
-  Divider,
   FormCard,
   FormContainer,
   FormHeader,
@@ -13,95 +13,118 @@ import {
   InputCEP,
   InputLocation,
   InputNumber,
-  TotalContent,
-  TotalItem,
 } from './styles'
-import { Input } from '../../components/Input'
-import { InputSelect } from '../../components/InputSelect'
-import { Cart } from '../../components/CoffeeCard/Cart'
-import { useCart } from '../../contexts/CartProvider'
+import { FormProvider, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const newOrderFormValidationSchema = zod.object({
+  cep: zod.string().regex(/\d{5}-?\d{3}/, 'CEP inválido'),
+  street: zod.string().min(1, 'Informe a rua para entrega'),
+  number: zod.string().refine((val) => /^\d+$/.test(val), {
+    message: 'Digite apenas números para o número do local',
+  }),
+  complement: zod.string().optional(),
+  neighborhood: zod.string().min(1, 'Informe o bairro'),
+  city: zod.string().min(1, 'Informe a cidade'),
+  uf: zod.string().min(2, 'Insira o estado corretamente').toUpperCase(),
+  paymentMethod: zod
+    .string()
+    .min(1, { message: 'Selecione um método de pagamento' }),
+})
+
+type NewOrderFormData = zod.infer<typeof newOrderFormValidationSchema>
 
 export function Checkout() {
-  const { cartItems } = useCart()
+  const newOrderForm = useForm<NewOrderFormData>({
+    resolver: zodResolver(newOrderFormValidationSchema),
+  })
+
+  const { handleSubmit } = newOrderForm
+
+  function handleNewOrder(data: NewOrderFormData) {
+    console.log(data)
+  }
 
   return (
     <CheckoutContainer>
-      <FormContainer>
-        <div>
-          <h1>Complete seu pedido</h1>
+      <FormContainer id="order-form" onSubmit={handleSubmit(handleNewOrder)}>
+        <FormProvider {...newOrderForm}>
+          <div>
+            <h1>Complete seu pedido</h1>
 
-          <FormCard>
-            <FormHeader>
-              <MapPinLine size={22} color="#C47F17" />
-              <div>
-                <span>Endereço de Entrega</span>
-                <p>Informe o endereço onde deseja receber seu pedido</p>
-              </div>
-            </FormHeader>
-            <FormInputs>
-              <InputCEP>
-                <Input placeholder="CEP" />
-              </InputCEP>
-              <Input placeholder="Rua" />
-              <InputNumber>
-                <Input placeholder="Número" />
-                <Input placeholder="Complemento" optional />
-              </InputNumber>
-              <InputLocation>
-                <Input placeholder="Bairro" />
-                <Input placeholder="Cidade" />
-                <Input placeholder="UF" />
-              </InputLocation>
-            </FormInputs>
-          </FormCard>
+            <FormCard>
+              <FormHeader>
+                <MapPinLine size={22} color="#C47F17" />
+                <div>
+                  <span>Endereço de Entrega</span>
+                  <p>Informe o endereço onde deseja receber seu pedido</p>
+                </div>
+              </FormHeader>
+              <FormInputs>
+                <InputCEP>
+                  <Input placeholder="CEP" id="cep" type="text" name="cep" />
+                </InputCEP>
+                <Input
+                  placeholder="Rua"
+                  id="street"
+                  type="text"
+                  name="street"
+                />
+                <InputNumber>
+                  <Input
+                    placeholder="Número"
+                    type="text"
+                    id="number"
+                    name="number"
+                  />
+                  <Input
+                    placeholder="Complemento"
+                    optional
+                    id="complement"
+                    type="text"
+                    name="complement"
+                  />
+                </InputNumber>
+                <InputLocation>
+                  <Input
+                    placeholder="Bairro"
+                    id="neighborhood"
+                    type="text"
+                    name="neighborhood"
+                  />
+                  <Input
+                    placeholder="Cidade"
+                    id="city"
+                    type="text"
+                    name="city"
+                  />
+                  <Input placeholder="UF" id="uf" type="text" name="uf" />
+                </InputLocation>
+              </FormInputs>
+            </FormCard>
 
-          <FormCard>
-            <FormHeader>
-              <CurrencyDollar size={22} color="#8047F8" />
-              <div>
-                <span>Pagamento</span>
-                <p>
-                  O pagamento é feito na entrega. Escolha a forma que deseja
-                  pagar
-                </p>
-              </div>
-            </FormHeader>
-            <FormSelects>
-              <InputSelect payment="credit" />
-              <InputSelect payment="debit" />
-              <InputSelect payment="money" />
-            </FormSelects>
-          </FormCard>
-        </div>
+            <FormCard>
+              <FormHeader>
+                <CurrencyDollar size={22} color="#8047F8" />
+                <div>
+                  <span>Pagamento</span>
+                  <p>
+                    O pagamento é feito na entrega. Escolha a forma que deseja
+                    pagar
+                  </p>
+                </div>
+              </FormHeader>
+              <FormSelects>
+                <InputSelect name="paymentMethod" value="credit" />
+                <InputSelect name="paymentMethod" value="debit" />
+                <InputSelect name="paymentMethod" value="money" />
+              </FormSelects>
+            </FormCard>
+          </div>
+        </FormProvider>
         <div>
           <h1>Cafés selecionados</h1>
-
-          <CoffeeAccount>
-            <CoffeeCards>
-              {cartItems.map((item) => (
-                <div key={item.id}>
-                  {/* <Cart {...item} /> */}
-                  <Divider />
-                </div>
-              ))}
-            </CoffeeCards>
-
-            <TotalContent>
-              <TotalItem>
-                <p>Total de itens</p>
-                <span>R$ 29,70</span>
-              </TotalItem>
-              <TotalItem>
-                <p>Total de itens</p>
-                <span>R$ 29,70</span>
-              </TotalItem>
-              <TotalItem totalsum>
-                <p>Total</p>
-                <span>R$ 29,70</span>
-              </TotalItem>
-            </TotalContent>
-            <BuyButton>confirmar pedido</BuyButton>
-          </CoffeeAccount>
+          <ShoppingCart />
         </div>
       </FormContainer>
     </CheckoutContainer>

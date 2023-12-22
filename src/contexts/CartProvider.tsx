@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useContext, useState } from 'react'
+import { ReactNode, createContext, useContext } from 'react'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 interface CartItem {
   id: string
@@ -22,7 +23,10 @@ interface CartProviderProps {
 export const CartContext = createContext({} as CartContext)
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    'coffee-delivery',
+    [],
+  )
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -31,27 +35,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   function getItemQuantity(id: string) {
     return cartItems.find((item) => item.id === id)?.quantity || 0
-  }
-
-  function addToCart(id: string, quantity: number) {
-    const newCartItem = {
-      id,
-      quantity,
-    }
-
-    setCartItems((prevItems) => {
-      if (prevItems.find((item) => item.id === id) == null && quantity > 0) {
-        return [...prevItems, newCartItem]
-      } else {
-        return prevItems.map((item) => {
-          if (item.id === id && quantity > 0) {
-            return { ...item, quantity }
-          } else {
-            return item
-          }
-        })
-      }
-    })
   }
 
   function increaseCartQuantity(id: string) {
@@ -78,6 +61,27 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         return prevItems.map((item) => {
           if (item.id === id) {
             return { ...item, quantity: item.quantity - 1 }
+          } else {
+            return item
+          }
+        })
+      }
+    })
+  }
+
+  function addToCart(id: string, quantity: number) {
+    const newCartItem = {
+      id,
+      quantity,
+    }
+
+    setCartItems((prevItems) => {
+      if (prevItems.find((item) => item.id === id) == null && quantity > 0) {
+        return [...prevItems, newCartItem]
+      } else {
+        return prevItems.map((item) => {
+          if (item.id === id && quantity > 0) {
+            return { ...item, quantity }
           } else {
             return item
           }

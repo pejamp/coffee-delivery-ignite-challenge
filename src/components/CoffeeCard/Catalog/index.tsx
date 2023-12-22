@@ -1,6 +1,5 @@
 import { ShoppingCart } from '@phosphor-icons/react'
 import { InputCounter } from '../../InputCounter'
-import { formatPrice } from '../../../utils/formatPrice'
 import {
   CartButton,
   CatalogContainer,
@@ -13,6 +12,7 @@ import {
 } from './styles'
 import { useCart } from '../../../contexts/CartProvider'
 import { useState } from 'react'
+import { formatCurrency } from '../../../utils/formatCurrency'
 
 export interface CatalogProps {
   id: string
@@ -28,7 +28,7 @@ export function Catalog(props: CatalogProps) {
   const quantity = getItemQuantity(props.id)
   const [itemQuantity, setItemQuantity] = useState(quantity)
 
-  const formattedPrice = formatPrice(props.price)
+  const formattedPrice = formatCurrency(props.price)
 
   return (
     <CatalogContainer>

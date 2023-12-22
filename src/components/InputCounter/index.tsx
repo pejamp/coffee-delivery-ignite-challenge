@@ -24,11 +24,11 @@ export function InputCounter({
 
   return (
     <CounterContainer>
-      <CounterButton onClick={handleDecreaseAmount}>
+      <CounterButton type="button" onClick={handleDecreaseAmount}>
         <Minus size={14} />
       </CounterButton>
       <span>{quantity}</span>
-      <CounterButton onClick={handleIncreaseAmount}>
+      <CounterButton type="button" onClick={handleIncreaseAmount}>
         <Plus size={14} />
       </CounterButton>
     </CounterContainer>

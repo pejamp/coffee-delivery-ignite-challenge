@@ -1,5 +1,5 @@
+import { Trash } from '@phosphor-icons/react'
 import { useCart } from '../../../contexts/CartProvider'
-import { formatPrice } from '../../../utils/formatPrice'
 import { InputCounter } from '../../InputCounter'
 import {
   CartActions,
@@ -10,40 +10,40 @@ import {
   PriceTag,
 } from './styles'
 
-import { Trash } from '@phosphor-icons/react'
+import { coffees } from '../../../../data.json'
+import { formatCurrency } from '../../../utils/formatCurrency'
 
 export interface CartProps {
   id: string
-  title: string
-  price: number
   quantity: number
-  image: string
 }
 
-export function Cart(props: CartProps) {
-  const { increaseCartQuantity, decreaseCartQuantity } = useCart()
-  const formattedPrice = formatPrice(props.price)
+export function Cart({ id, quantity }: CartProps) {
+  const { removeFromCart, increaseCartQuantity, decreaseCartQuantity } =
+    useCart()
+  const item = coffees.find((coffee) => coffee.id === id)
+  if (item == null) return null
 
   return (
     <CartContainer>
       <CartInfo>
-        <img src={props.image} alt={props.title} />
+        <img src={item.image} alt={item.title} />
         <div>
-          <CartName>{props.title}</CartName>
+          <CartName>{item.title}</CartName>
           <CartActions>
             <InputCounter
-              quantity={props.quantity}
-              increaseQuantity={() => increaseCartQuantity(props.id)}
-              decreaseQuantity={() => decreaseCartQuantity(props.id)}
+              quantity={quantity}
+              increaseQuantity={() => increaseCartQuantity(id)}
+              decreaseQuantity={() => decreaseCartQuantity(id)}
             />
-            <CartButton>
+            <CartButton onClick={() => removeFromCart(id)}>
               <Trash size={16} />
               remover
             </CartButton>
           </CartActions>
         </div>
       </CartInfo>
-      <PriceTag>R$ {formattedPrice}</PriceTag>
+      <PriceTag>R$ {formatCurrency(item.price)}</PriceTag>
     </CartContainer>
   )
 }

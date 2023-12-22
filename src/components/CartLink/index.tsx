@@ -5,7 +5,7 @@ import { useCart } from '../../contexts/CartProvider'
 
 export function CartLink() {
   const { cartItems } = useCart()
-  const isCartEmpty = false
+  const isCartEmpty = cartItems.length === 0
 
   return (
     <Link to={'/checkout'}>
