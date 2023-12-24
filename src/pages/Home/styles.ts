@@ -50,7 +50,7 @@ interface ItemProps {
 }
 
 export const Item = styled.li.withConfig({
-  shouldForwardProp: (props) => props === '$itemColors',
+  shouldForwardProp: (props) => props === '$itemColors' || props === 'children',
 })<ItemProps>`
   display: flex;
   align-items: center;
