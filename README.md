@@ -1,30 +1,92 @@
-# React + TypeScript + Vite
+<h1 align="center">
+    <br>
+    <img src="/logo.svg" alt="">
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h4 align="center">
+    Challenge React
+</h4>
 
-Currently, two official plugins are available:
+<p align="center">
+    <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/pejamp/coffee-delivery-ignite-challenge?color=8047F8&style=for-the-badge&labelColor=DBAC2C">
+    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/pejamp/coffee-delivery-ignite-challenge?color=8047F8&style=for-the-badge&labelColor=DBAC2C">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/pejamp/coffee-delivery-ignite-challenge?color=8047F8&style=for-the-badge&labelColor=DBAC2C">
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h1 align="center">
+    <img alt="Coffee Delivery" src="/cover.png" />
+</h1>
 
-## Expanding the ESLint configuration
+# Coffee Delivery <img src="/small-logo.svg" width="28" alt="logo icon">
+Coffee Delivery é uma aplicação para gerenciar um carrinho de compras de uma cafeteria fictícia, que contém as seguintes funcionalidades:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Listagem de produtos (cafés) disponíveis para compra
+- Adicionar uma quantidade específica de itens no carrinho
+- Aumentar ou remover a quantidade de itens no carrinho
+- Formulário para o usuário preencher o seu endereço
+- Exibir o total de itens no carrinho no Header
+- Exibir o valor total da soma de itens no carrinho multiplicados pelo valor
 
-- Configure the top-level `parserOptions` property like this:
+Nesse desafio busco reforçar meus conhecimentos sobre os conceitos mais importantes do ReactJS.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- Estados
+- ContextAPI
+- LocalStorage
+- Imutabilidade do estado
+- Listas e chaves no ReactJS
+- Propriedades
+- Componentização
+
+## 🛠️ Tecnologias
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [styled-components](https://styled-components.com/)
+- [react-router-dom](https://reactrouter.com/en/main)
+- [phosphor-icons](https://phosphoricons.com/)
+- [react-hook-form](https://react-hook-form.com/)
+- [@hookform/resolvers](https://www.npmjs.com/package/@hookform/resolvers)
+- [zod](https://zod.dev/)
+
+## 🚀 Como executar
+
+Clone o projeto e acesse a pasta do mesmo.
+
+```bash
+$ git clone https://github.com/pejamp/coffee-delivery-ignite-challenge
+$ cd coffee-delivery-ignite-challenge
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Para iniciá-lo, siga os passos abaixo:
+```bash
+# Instalar as dependências
+$ npm install
+
+# Iniciar o projeto
+$ npm run dev
+```
+
+## 🌐 Projeto
+
+- [Deploy](https://coffee-delivery-ignite-challenge.vercel.app/)
+
+## 👨‍💻 Autor
+
+<a href="https://github.com/pejamp">
+ <img 
+  src="https://avatars.githubusercontent.com/u/53826489?s=460&u=834aa9912aaaa1464d4635cb9fa7767c64a6e9b3&v=4" 
+  width="100px;" 
+  alt="profile photo" 
+ />
+ <br />
+ <sub><b>Pedro Rodrigues</b></sub>
+</a> 
+<a href="https://github.com/pejamp"></a>
+<br />
+
+## Contact me!
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pedro-rodrigues-3a3647176/)
+[![gmail](https://img.shields.io/badge/gmail-c14438?style=for-the-badge&logo=gmail&logoColor=white)](mailto:pedro.roguea@gmail.com)
