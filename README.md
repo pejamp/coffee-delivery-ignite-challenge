@@ -1,6 +1,6 @@
 <h1 align="center">
     <br>
-    <img src="/src/assets/logo.svg" alt="">
+    <img src="/src/assets/logo.svg" alt="" width="64">
 </h1>
 
 <h4 align="center">
@@ -17,7 +17,7 @@
     <img alt="Coffee Delivery" src="/src/assets/cover.png" />
 </h1>
 
-# Coffee Delivery <img src="/src/assets/small-logo.svg" width="28" alt="logo icon">
+# Coffee Delivery <img src="/src/assets/small-logo.svg" width="32" alt="logo icon">
 Coffee Delivery é uma aplicação para gerenciar um carrinho de compras de uma cafeteria fictícia, que contém as seguintes funcionalidades:
 
 - Listagem de produtos (cafés) disponíveis para compra
