@@ -1,5 +1,7 @@
+import { ChangeEvent, useState } from 'react'
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
 import { Catalog } from '../../components/CoffeeCard/Catalog'
+import { coffees } from '../../../data.json'
 import {
   CoffeeSection,
   IntroContainer,
@@ -7,10 +9,8 @@ import {
   Item,
   ItemsContainer,
   ListContainer,
-  TagButton,
+  CheckboxTag,
 } from './styles'
-
-import { coffees } from '../../../data.json'
 
 const introItems = [
   {
@@ -36,6 +36,15 @@ const introItems = [
 ]
 
 export function Home() {
+  const [filteredCoffees, setFilteredCoffees] = useState(coffees)
+
+  function handleFilterCoffees(event: ChangeEvent<HTMLInputElement>) {
+    const newCoffeeList = coffees.filter((coffee) =>
+      coffee.tags.includes(event.target.value),
+    )
+    setFilteredCoffees(newCoffeeList)
+  }
+
   return (
     <main>
       <IntroContainer>
@@ -66,25 +75,65 @@ export function Home() {
           <nav>
             <ul>
               <li>
-                <TagButton>tradicional</TagButton>
+                <CheckboxTag>
+                  <input
+                    type="radio"
+                    name="coffee-tag"
+                    value="tradicional"
+                    onChange={handleFilterCoffees}
+                  />
+                  tradicional
+                </CheckboxTag>
               </li>
               <li>
-                <TagButton>especial</TagButton>
+                <CheckboxTag>
+                  <input
+                    type="radio"
+                    name="coffee-tag"
+                    value="especial"
+                    onChange={handleFilterCoffees}
+                  />
+                  especial
+                </CheckboxTag>
               </li>
               <li>
-                <TagButton>com leite</TagButton>
+                <CheckboxTag>
+                  <input
+                    type="radio"
+                    name="coffee-tag"
+                    value="com leite"
+                    onChange={handleFilterCoffees}
+                  />
+                  com leite
+                </CheckboxTag>
               </li>
               <li>
-                <TagButton>alcoólico</TagButton>
+                <CheckboxTag>
+                  <input
+                    type="radio"
+                    name="coffee-tag"
+                    value="alcoólico"
+                    onChange={handleFilterCoffees}
+                  />
+                  alcoólico
+                </CheckboxTag>
               </li>
               <li>
-                <TagButton>gelado</TagButton>
+                <CheckboxTag>
+                  <input
+                    type="radio"
+                    name="coffee-tag"
+                    value="gelado"
+                    onChange={handleFilterCoffees}
+                  />
+                  gelado
+                </CheckboxTag>
               </li>
             </ul>
           </nav>
         </div>
         <ListContainer>
-          {coffees.map((coffee) => (
+          {filteredCoffees.map((coffee) => (
             <li key={coffee.id}>
               <Catalog {...coffee} />
             </li>

@@ -97,7 +97,7 @@ export const CoffeeSection = styled.section`
   }
 `
 
-export const TagButton = styled.button`
+export const CheckboxTag = styled.label`
   padding: 6px 12px;
   border-radius: 100px;
   border: 1px solid ${(props) => props.theme['yellow-500']};
@@ -115,11 +115,21 @@ export const TagButton = styled.button`
     background-color: ${(props) => props.theme['yellow-100']};
     border-color: transparent;
   }
+
+  &:has(input:checked) {
+    background-color: ${(props) => props.theme['yellow-100']};
+    border-color: transparent;
+  }
+
+  input {
+    appearance: none;
+    -webkit-appearance: none;
+  }
 `
 
 export const ListContainer = styled.ul`
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 1fr);
   row-gap: 40px;
   column-gap: 32px;
 `

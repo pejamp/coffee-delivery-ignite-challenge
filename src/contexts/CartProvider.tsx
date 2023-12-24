@@ -1,7 +1,19 @@
-import { ReactNode, createContext, useContext } from 'react'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react'
+import cartReducer from '../reducers/cart/reducer'
+import {
+  addToCartAction,
+  decreaseCartQuantityAction,
+  increaseCartQuantityAction,
+  removeFromCartAction,
+} from '../reducers/cart/actions'
 
-interface CartItem {
+export interface CartItem {
   id: string
   quantity: number
 }
@@ -23,77 +35,41 @@ interface CartProviderProps {
 export const CartContext = createContext({} as CartContext)
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
-    'coffee-delivery',
-    [],
-  )
+  const [cartItems, dispatch] = useReducer(cartReducer, [], (initialState) => {
+    const storedStateAsJSON = localStorage.getItem('coffee-delivery')
+
+    if (storedStateAsJSON != null) return JSON.parse(storedStateAsJSON)
+
+    return initialState
+  })
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
     0,
   )
 
+  useEffect(() => {
+    localStorage.setItem('coffee-delivery', JSON.stringify(cartItems))
+  }, [cartItems])
+
   function getItemQuantity(id: string) {
     return cartItems.find((item) => item.id === id)?.quantity || 0
   }
 
   function increaseCartQuantity(id: string) {
-    setCartItems((prevItems) => {
-      if (prevItems.find((item) => item.id === id) == null) {
-        return [...prevItems, { id, quantity: 1 }]
-      } else {
-        return prevItems.map((item) => {
-          if (item.id === id) {
-            return { ...item, quantity: item.quantity + 1 }
-          } else {
-            return item
-          }
-        })
-      }
-    })
+    dispatch(increaseCartQuantityAction(id))
   }
 
   function decreaseCartQuantity(id: string) {
-    setCartItems((prevItems) => {
-      if (prevItems.find((item) => item.id === id)?.quantity === 1) {
-        return prevItems.filter((item) => item.id !== id)
-      } else {
-        return prevItems.map((item) => {
-          if (item.id === id) {
-            return { ...item, quantity: item.quantity - 1 }
-          } else {
-            return item
-          }
-        })
-      }
-    })
+    dispatch(decreaseCartQuantityAction(id))
   }
 
   function addToCart(id: string, quantity: number) {
-    const newCartItem = {
-      id,
-      quantity,
-    }
-
-    setCartItems((prevItems) => {
-      if (prevItems.find((item) => item.id === id) == null && quantity > 0) {
-        return [...prevItems, newCartItem]
-      } else {
-        return prevItems.map((item) => {
-          if (item.id === id && quantity > 0) {
-            return { ...item, quantity }
-          } else {
-            return item
-          }
-        })
-      }
-    })
+    dispatch(addToCartAction(id, quantity))
   }
 
   function removeFromCart(id: string) {
-    setCartItems((prevItems) => {
-      return prevItems.filter((item) => item.id !== id)
-    })
+    dispatch(removeFromCartAction(id))
   }
 
   return (
